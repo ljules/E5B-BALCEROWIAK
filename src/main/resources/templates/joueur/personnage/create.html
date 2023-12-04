@@ -32,7 +32,18 @@
                 <input min="0" minlength="99" type="number" class="form-control" id="vitesse" th:field="${nouvellePersonnage.vitesse}" required>
             </div>
 
-            <!-- Ajoutez d'autres champs du formulaire si nécessaire -->
+
+
+            <div class="mb-3">
+                <label for="armure" class="form-label">Armure</label>
+                <select class="form-select" id="armure" th:field="${nouvellePersonnage.armureEquipee}" required>
+                    <option value="" disabled selected>Choisissez une armure</option>
+                    <option th:each="uneArmure : ${armure}" th:value="${uneArmure.id}" th:text="${uneArmure.nom}"></option>
+                </select>
+            </div>
+
+
+
 
             <button type="submit" class="btn btn-primary">Créer</button>
         </form>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="mesFragments :: fragHead">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="min-vh-100">
+    <nav th:replace="mesFragments :: fragNav"></nav>
+    <main class="container">
+        <h1>Détails de la potion</h1>
+        <div>
+            <p><strong>Nom : </strong> <span th:text="${potion.nom}"></span></p>
+            <p><strong>description : </strong> <span th:text="${potion.description}"></span></p>
+            <p><strong>soin : </strong> <span th:text="${potion.soin}"></span></p>
+
+        <a th:href="@{'/admin/potion'}" class="btn btn-primary">
+            Retour à la liste
+        </a>
+
+    </main>
+
+</div>
+<footer th:replace="mesFragments :: fragFooter"></footer>
+</body>
+</html>

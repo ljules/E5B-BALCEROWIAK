@@ -10,6 +10,8 @@
     <div th:replace="mesFragments:: fragFlashSuccess"></div>
     <main class="container">
 <h1>Gestion des types d'armures</h1>
+        <p>Nombre total : <span th:text="${nombreTotalTypeArmures}"></span></p>
+
         <div >
             <a th:href="@{'/admin/typeArmure/create'}" class="btn btn-success">
                 Ajouter un type d'armure

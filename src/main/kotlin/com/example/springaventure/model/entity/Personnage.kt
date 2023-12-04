@@ -49,6 +49,12 @@ open class Personnage(
     @ManyToOne
     @JoinColumn(name = "accessoire_id")
     open var accessoire: Accessoire? = null
+
+
+
+
+
+
 ) {
 
     /**
@@ -229,6 +235,7 @@ open class Personnage(
     override fun toString(): String {
         return "$nom (PV: $pointDeVie/$pointDeVieMax, Attaque: $attaque, Défense: $defense, Endurance: $endurance, Vitesse: $vitesse)"
     }
+
 
 
 }

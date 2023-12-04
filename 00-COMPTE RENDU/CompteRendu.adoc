@@ -1,0 +1,97 @@
+= Compte-rendu
+:toc:
+==
+
+- Balcerowiak Antoine
+
+
+== afficher détail potion
+
+source : potion/show.html
+
+----
+
+        <h1>Détails de la potion</h1>
+        <div>
+            <p><strong>Nom : </strong> <span th:text="${potion.nom}"></span></p>
+            <p><strong>description : </strong> <span th:text="${potion.description}"></span></p>
+            <p><strong>soin : </strong> <span th:text="${potion.soin}"></span></p>
+
+        <a th:href="@{'/admin/potion'}" class="btn btn-primary">
+            Retour à la liste
+        </a>
+
+----
+
+Pour afficher les details de la potion j'ai créé un nouvel htlm nommé show qui affiche le nom la description
+et le soin que fait la potion
+
+
+== nombre total type armure
+
+source : admin/TypeArmureControleur
+
+----
+
+        @GetMapping("/admin/typeArmure")
+    fun index(model: Model): String {
+        // Récupère tous les types d'armures depuis la base de données
+        val typeArmures = this.typeArmureDao.findAll()
+        // Ajoute la liste des types d'armures au modèle pour transmission à la vue
+        model.addAttribute("typeArmures", typeArmures)
+
+        // Nombre total de types d'armures
+        model.addAttribute("nombreTotalTypeArmures", typeArmures.size)
+
+        return "admin/typearmure/index"
+    }
+
+----
+Ici dans un premier temps j'ai rajouter " model.addAttribute("nombreTotalTypeArmures", typeArmures.size) " qui
+me permet de compter le nombre de type armure dans la liste typeArmures
+
+Puis dans le index je rajoute
+
+source : typearmure/index.html
+----
+[...]
+<p>Nombre total : <span th:text="${nombreTotalTypeArmures}"></span></p>
+[...]
+----
+
+qui permet d'afficher le nombre total
+
+== Lors de la creation du personnage choisir une armure
+
+Dans un premier temps j'ai ajouter dans le PersonnageControleur
+
+
+source : joueur/PersonnageControleur
+----
+val armureDao: ArmureDao
+----
+qui me donne accès à ArmureDao ensuite
+
+source : joueur/PersonnageControleur
+----
+val armure = armureDao.findAll()
+model.addAttribute("armure", armure)
+----
+
+qui me permet de récupérer toute les amures avec le findAll puis de les ajouter dans le model
+avec le addAttribute qui nous permetteras ensuite de récuperer les armures dans le
+create.htlm de personnage
+
+source : personnage/create.html
+----
+[...]
+<div class="mb-3">
+                <label for="armure" class="form-label">Armure</label>
+                <select class="form-select" id="armure" th:field="${nouvellePersonnage.armureEquipee}" required>
+                    <option value="" disabled selected>Choisissez une armure</option>
+                    <option th:each="uneArmure : ${armure}" th:value="${uneArmure.id}" th:text="${uneArmure.nom}"></option>
+                </select>
+            </div>
+[...]
+----
+donc la je récupère toute les armures puis je les affiches dans une liste déroulante
